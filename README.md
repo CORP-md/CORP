@@ -1,7 +1,7 @@
-# CORP.skill
+# CORP
 **A company in a folder. Lightweight multi-agent org structure for AI coding assistants.**
 
-Drop a `.claude/` folder into any repo and give your AI a CEO, a dev lead, a designer, a QA engineer, and a systems architect; all in markdown. No frameworks, no orchestration layer, no dependencies. Just files.
+Drop a `.claude/` folder into any repo and give your AI a CEO, a dev lead, a designer, a QA engineer, and a systems architect — all in markdown. No frameworks, no orchestration layer, no dependencies. Just files.
 
 Compatible with **Claude Code · Codex CLI · Cursor · Gemini CLI · OpenCode · Windsurf** and any tool that reads the Agent Skills standard.
 
@@ -26,35 +26,51 @@ Each agent is a markdown file with a defined role, domain knowledge, and a hando
 ---
 
 ## Install
+
+**As a Claude Code plugin** (enables `/corp` slash commands — recommended):
 ```bash
-# Clone into your project
-git clone https://github.com/zblauser/corp .claude-tmp
-cp -r .claude-tmp/.claude ./
-rm -rf .claude-tmp
+claude plugin install github:zblauser/CORP
 ```
 
-Or just download the `.claude/` folder and drop it in your repo root.
+**Manual** (agents only, works in any AI tool that reads markdown):
+```bash
+git clone https://github.com/zblauser/CORP .corp-tmp
+cp -r .corp-tmp/.claude ./
+rm -rf .corp-tmp
+```
 
 ---
 
-## Setup (5 minutes)
-**1. Edit the `[PROJECT]` block in `.claude/CLAUDE.md`**
+## Slash Commands
+
+Once installed as a plugin, these commands are available in Claude Code:
+
+| Command | What it does |
+|---|---|
+| `/corp` | Quick-reference: agent map, dispatch protocol, setup status |
+| `/corp:init` | Interactive setup wizard — fills in `[PROJECT]` and `ARCH.md` by asking questions |
+| `/corp:add-agent` | Scaffolds a new specialist agent and wires it into the org |
+
+Start with `/corp:init` on a new repo. Takes about 2 minutes.
+
+---
+
+## Setup (manual)
+If not using the plugin, fill in two files:
+
+**1. `[PROJECT]` block in `.claude/CLAUDE.md`**
 ```
 Name: your-project
-Stack: your stack
-Structure: your folder layout
-Entry: your entrypoints
-Docs: where to find more context
+Stack: language · framework · database · frontend
+Structure: /src · /api · /components
+Entry: main entrypoints
+Conventions: tabs/spaces, naming style, test framework
 ```
 
-**2. Update entity/contract section in `.claude/agents/ARCH.md`**
-Sketch your data model and API shapes. Keep it terse. This is what Claude consults before touching any data layer.
+**2. Entity/contract section in `.claude/agents/ARCH.md`**
+Sketch your data model and API shapes. Keep it under 40 lines.
 
-**3. Update file paths in `.claude/agents/DEV.md`**
-Point the `KNOWS` section at your actual folder structure.
-
-**4. Leave everything else alone**
-`CEO.md`, `QA.md`, and `DESIGN.md` are intentionally abstract — they port as-is.
+Everything else works as-is.
 
 Full guide: [CONTRIBUTING.md](.claude/CONTRIBUTING.md)
 
@@ -74,35 +90,36 @@ Task arrives
 
 Agents are **referential, not prescriptive** — they tell Claude what it knows and who to consult, not what to do step by step. This keeps token usage low and lets the model reason rather than follow a script.
 
-Each agent tags its output: `[CEO]`, `[DEV]`, `[DESIGN]`, `[QA]`, `[ARCH]` so context is operating in.
+Each agent tags its output: `[CEO]` `[DEV]` `[DESIGN]` `[QA]` `[ARCH]` so you always know who's talking.
 
 ---
 
 ## Design Principles
-**Token-first.** Every line earns its place. Agents load on demand, not upfront. The whole org is under 430 lines.
+**Token-first.** Every line earns its place. Agents load on demand, not upfront. The whole org is under 500 lines.
 
-**Referential over prescriptive.** Agents know what they know. They don't script every step; they orient the model and hand off.
+**Referential over prescriptive.** Agents know what they know. They don't script every step — they orient the model and hand off.
 
-**Generic core, project-specific edges.** Only the `[PROJECT]` block in `CLAUDE.md` and the entity section in `ARCH.md` change per repo. Everything else ports.
+**Generic core, project-specific edges.** Only the `[PROJECT]` block in `CLAUDE.md` and the entity section in `ARCH.md` change per repo. Everything else ports as-is.
 
 **Output-tagged.** Every agent response carries its tag. You always know who's talking.
 
 ---
 
 ## Adding Agents
-When a domain grows large enough (auth, infra, ML, data):
+When a domain grows large enough (auth, infra, ML, payments, data pipeline):
 
+Use `/corp:add-agent` or do it manually:
 1. Copy the structure: `ROLE · KNOWS · CALLS · OUTPUT FORMAT`
 2. Add it to the Agent Map table in `CLAUDE.md`
 3. Reference it from relevant existing agents' `CALLS` sections
-4. Keep it under ~60 lines; if longer, split it
+4. Keep it under 50 lines — if longer, split it
 
 ---
 
 ## Compatibility
 | Tool | Path | Status |
 |---|---|---|
-| Claude Code | `.claude/agents/` | ✅ native |
+| Claude Code | `.claude/agents/` | ✅ native + plugin |
 | Codex CLI | `codex.md` + agents | ✅ compatible |
 | Cursor | `.cursor/rules/` | ✅ copy agents there |
 | Gemini CLI | `GEMINI.md` + agents | ✅ compatible |
@@ -113,10 +130,9 @@ When a domain grows large enough (auth, infra, ML, data):
 
 ## Inspired By
 - Caveman Claude compression principles
-- Karpathy's LLM wiki / idea file patterns
-- The Agent Skills open standard (`agentskills.io`)
+- Karpathy's LLM idea file patterns
+- The Agent Skills open standard
 
 ---
 
-*corp is a skill, not a framework. It has no runtime, no install, no version to update. It's just files that know how to work together.*
-
+*corp is a skill, not a framework. It has no runtime, no install step, no version to update. It's just files that know how to work together.*

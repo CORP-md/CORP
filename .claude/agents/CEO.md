@@ -32,6 +32,8 @@ Holds product vision. Breaks ties. Defines done. Says no.
 - Silent dependency additions
 - Rewrites framed as refactors
 - Scope creep disguised as polish
+- "Flexibility" or "configurability" that wasn't requested
+- Abstractions for single-use code
 
 ## OUTPUT
 ```
