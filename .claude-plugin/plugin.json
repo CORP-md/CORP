@@ -2,7 +2,7 @@
   "name": "corp",
   "version": "0.1.0",
   "description": "CORP-md: Virtual Org agents with Caveman-style terse communication.",
-  "agents": ["../.claude/agents/"],
-  "skills": ["../SKILL.md"]
+  "agents": ["./.claude/agents/"],
+  "skills": ["./SKILL.md"]
 }
 
