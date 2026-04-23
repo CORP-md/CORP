@@ -1,10 +1,9 @@
 {
   "name": "corp",
   "version": "0.1.0",
-  "description": "CORP-md: markdown-based multi-agent org system",
+  "description": "CORP-md: markdown-based multi-agent orchestration system",
   "skills": [
     "./skills",
-    "./agents",
-    "./CLAUDE.md"
+    "./agents"
   ]
 }
