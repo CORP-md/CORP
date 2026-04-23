@@ -1,8 +1,10 @@
 {
   "name": "corp",
   "version": "0.1.0",
-  "description": "CORP-md: Virtual Org agents with terse communication.",
-  "agents": ["./agents/"],
-  "skills": ["./", "./skills/"]
+  "description": "CORP-md: markdown-based multi-agent org system",
+  "skills": [
+    "./skills",
+    "./agents",
+    "./CLAUDE.md"
+  ]
 }
-
