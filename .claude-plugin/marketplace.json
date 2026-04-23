@@ -1,8 +1,6 @@
 {
   "name": "corp-md",
-  "owner": {
-    "name": "CORP-md"
-  },
+  "owner": { "name": "CORP-md" },
   "metadata": {
     "description": "Official CORP-md marketplace.",
     "version": "0.1.0"
@@ -10,7 +8,7 @@
   "plugins": [
     {
       "name": "corp",
-      "source": "./.claude-plugin",
+      "source": ".",
       "description": "The core CORP-md agent organization."
     }
   ]
